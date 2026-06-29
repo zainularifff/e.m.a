@@ -1013,8 +1013,18 @@ function buildModuleAccessMap(modules = []) {
     for (const moduleRow of modules) {
         const key = normalizeModuleKey(moduleRow.ModuleKey || moduleRow.moduleKey || moduleRow.key || moduleRow.ModuleName || moduleRow.name);
         if (!key) continue;
+
         access[key] = {
-            view: true,
+            view: moduleRow.CanView === true || moduleRow.CanView === 1 || String(moduleRow.CanView || "").toLowerCase() === "true",
+            access: moduleRow.CanAccess === true || moduleRow.CanAccess === 1 || String(moduleRow.CanAccess || "").toLowerCase() === "true",
+            create: moduleRow.CanCreate === true || moduleRow.CanCreate === 1 || String(moduleRow.CanCreate || "").toLowerCase() === "true",
+            edit: moduleRow.CanEdit === true || moduleRow.CanEdit === 1 || String(moduleRow.CanEdit || "").toLowerCase() === "true",
+            delete: moduleRow.CanDelete === true || moduleRow.CanDelete === 1 || String(moduleRow.CanDelete || "").toLowerCase() === "true",
+            export: moduleRow.CanExport === true || moduleRow.CanExport === 1 || String(moduleRow.CanExport || "").toLowerCase() === "true",
+            approve: moduleRow.CanApprove === true || moduleRow.CanApprove === 1 || String(moduleRow.CanApprove || "").toLowerCase() === "true",
+            enabled: moduleRow.IsEnabled === undefined || moduleRow.IsEnabled === null || moduleRow.IsEnabled === true || moduleRow.IsEnabled === 1 || String(moduleRow.IsEnabled || "").toLowerCase() === "true",
+            permissionID: moduleRow.PermissionID || moduleRow.permissionID || null,
+            roleID: moduleRow.RoleID || moduleRow.roleID || null,
             moduleID: moduleRow.ModuleID || moduleRow.moduleID || moduleRow.id || null,
             moduleKey: key,
             moduleName: moduleRow.ModuleName || moduleRow.moduleName || moduleRow.name || key,
