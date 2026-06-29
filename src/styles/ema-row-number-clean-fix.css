@@ -1,0 +1,113 @@
+/* EMA Row Number Clean Fix */
+/* Remove ugly bubble numbering in Service Desk + Settings */
+
+main[data-section="service-desk"] .row-number,
+main[data-section="service-desk"] td:first-child,
+.settings-module-root .row-number,
+.settings-content .row-number,
+.settings-panel .row-number,
+.settings-page .row-number,
+.user-access-table .row-number,
+.clean-table .row-number {
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  color: #64748b !important;
+}
+
+/* Main fix: make row index plain professional text */
+main[data-section="service-desk"] .row-index-pill,
+.settings-module-root .row-index-pill,
+.settings-content .row-index-pill,
+.settings-panel .row-index-pill,
+.settings-page .row-index-pill,
+.user-access-table .row-index-pill,
+.clean-table .row-index-pill,
+.module-control-table .row-index-pill,
+.audit-standard-table .row-index-pill,
+.role-standard-table .row-index-pill,
+.service-desk-kb-table .row-index-pill {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  display: inline-block !important;
+  place-items: initial !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* Header NO column should stay simple */
+main[data-section="service-desk"] .user-row.head .user-cell:first-child,
+.settings-module-root .user-row.head .user-cell:first-child,
+.settings-content .user-row.head .user-cell:first-child,
+.user-access-table .user-row.head .user-cell:first-child,
+.clean-table .user-row.head .user-cell:first-child {
+  justify-content: center !important;
+  text-align: center !important;
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  letter-spacing: .05em !important;
+  text-transform: uppercase !important;
+}
+
+/* Keep first column narrow and consistent */
+main[data-section="service-desk"] .user-cell.row-number,
+.settings-module-root .user-cell.row-number,
+.settings-content .user-cell.row-number,
+.user-access-table .user-cell.row-number,
+.clean-table .user-cell.row-number {
+  min-width: 34px !important;
+  max-width: 54px !important;
+}
+
+/* Knowledge Base table number column */
+main[data-section="service-desk"] .service-desk-kb-table td:first-child,
+main[data-section="service-desk"] .service-desk-kb-table th:first-child {
+  width: 54px !important;
+  text-align: center !important;
+  color: #64748b !important;
+}
+
+/* Remove old KB number card style if injected before */
+main[data-section="service-desk"] .service-desk-kb-table .row-index-pill {
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+}
+
+/* Service desk ticket table compact numbering */
+main[data-section="service-desk"] [data-ticket-row="true"] .row-index-pill {
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+}
+
+/* Settings table compact numbering */
+.settings-module-root .user-row:not(.head) .row-number,
+.settings-content .user-row:not(.head) .row-number,
+.user-access-table .user-row:not(.head) .row-number {
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+}

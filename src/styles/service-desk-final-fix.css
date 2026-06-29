@@ -1,0 +1,231 @@
+/* Service Desk final UI fix */
+
+/* Table header: grey text only, no blue pill/box */
+main[data-section="service-desk"] .service-desk-table-wrap .user-row.head .user-cell {
+  color: #64748b !important;
+  font-size: .62rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+main[data-section="service-desk"] .service-desk-table-wrap .user-row.head button,
+main[data-section="service-desk"] .service-desk-table-wrap .user-row.head .soft-btn {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #64748b !important;
+  font-size: .62rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+main[data-section="service-desk"] .service-desk-table-wrap .user-row.head button span,
+main[data-section="service-desk"] .service-desk-table-wrap .user-row.head button i {
+  color: #64748b !important;
+  font-size: .62rem !important;
+  font-weight: 900 !important;
+}
+
+/* Asset column: compact text, no big badge */
+main[data-section="service-desk"] .service-desk-asset-cell {
+  display: grid !important;
+  gap: .12rem !important;
+  align-content: center !important;
+  min-width: 0 !important;
+}
+
+main[data-section="service-desk"] .service-desk-asset-cell strong,
+main[data-section="service-desk"] .service-desk-asset-cell small {
+  display: block !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+main[data-section="service-desk"] .service-desk-asset-cell strong {
+  color: #334155 !important;
+  font-size: .72rem !important;
+  font-weight: 850 !important;
+  line-height: 1.2 !important;
+}
+
+main[data-section="service-desk"] .service-desk-asset-cell small {
+  color: #94a3b8 !important;
+  font-size: .64rem !important;
+  font-weight: 720 !important;
+  line-height: 1.15 !important;
+}
+
+/* Knowledge Base compact */
+main[data-section="service-desk"] .service-desk-kb-panel {
+  min-height: 0 !important;
+  height: auto !important;
+  align-self: start !important;
+  border-radius: 1rem !important;
+  box-shadow: none !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-head {
+  min-height: 3.7rem !important;
+  padding: .82rem 1rem !important;
+  background: #fff !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-head h2 {
+  margin: 0 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.1 !important;
+  letter-spacing: -.025em !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-head p {
+  margin-top: .18rem !important;
+  font-size: .66rem !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-toolbar {
+  margin: .72rem 1rem .55rem !important;
+  padding: .52rem !important;
+  border-radius: .8rem !important;
+  background: #f8fafc !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-toolbar .ema-search-field {
+  min-height: 2.15rem !important;
+  width: min(100%, 22rem) !important;
+  border-radius: .78rem !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-summary {
+  min-height: 2.2rem !important;
+  margin: 0 1rem .55rem !important;
+  padding: .5rem .7rem !important;
+  border-radius: .78rem !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-table-card {
+  margin: 0 1rem 1rem !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  border-radius: .9rem !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-table th,
+main[data-section="service-desk"] .service-desk-kb-table th button {
+  padding: .58rem .75rem !important;
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-size: .62rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-table td {
+  padding: .58rem .75rem !important;
+  height: 3rem !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-title {
+  font-size: .72rem !important;
+  line-height: 1.22 !important;
+}
+
+main[data-section="service-desk"] .service-desk-kb-actions button {
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  border-radius: .55rem !important;
+}
+
+/* Service Desk toast: same compact notice style */
+main[data-section="service-desk"] .ema-notice-card {
+  position: fixed !important;
+  top: 86px !important;
+  right: 24px !important;
+  z-index: 2147483647 !important;
+  width: min(360px, calc(100vw - 32px)) !important;
+  min-height: 56px !important;
+  display: grid !important;
+  grid-template-columns: 32px minmax(0, 1fr) 24px !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 10px 12px !important;
+  border: 1px solid #d8e6fb !important;
+  border-left: 5px solid #2563eb !important;
+  border-radius: 15px !important;
+  background: #fff !important;
+  color: #0f2746 !important;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, .16) !important;
+  pointer-events: auto !important;
+  overflow: hidden !important;
+}
+
+main[data-section="service-desk"] .ema-notice-card.is-success { border-left-color: #22c55e !important; }
+main[data-section="service-desk"] .ema-notice-card.is-warning { border-left-color: #f59e0b !important; }
+main[data-section="service-desk"] .ema-notice-card.is-error { border-left-color: #ef4444 !important; }
+
+main[data-section="service-desk"] .ema-notice-icon {
+  width: 28px !important;
+  height: 28px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 9px !important;
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+}
+
+main[data-section="service-desk"] .ema-notice-card.is-success .ema-notice-icon { background: #dcfce7 !important; color: #166534 !important; }
+main[data-section="service-desk"] .ema-notice-card.is-warning .ema-notice-icon { background: #fef3c7 !important; color: #92400e !important; }
+main[data-section="service-desk"] .ema-notice-card.is-error .ema-notice-icon { background: #fee2e2 !important; color: #991b1b !important; }
+
+main[data-section="service-desk"] .ema-notice-body {
+  min-width: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+main[data-section="service-desk"] .ema-notice-title {
+  display: block !important;
+  margin: 0 !important;
+  color: #0f2746 !important;
+  font-size: .76rem !important;
+  font-weight: 950 !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+main[data-section="service-desk"] .ema-notice-message {
+  display: block !important;
+  margin-top: .16rem !important;
+  color: #64748b !important;
+  font-size: .68rem !important;
+  font-weight: 720 !important;
+  line-height: 1.22 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+main[data-section="service-desk"] .ema-notice-close {
+  width: 24px !important;
+  height: 24px !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+}

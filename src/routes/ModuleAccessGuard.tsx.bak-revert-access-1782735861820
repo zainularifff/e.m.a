@@ -1,0 +1,57 @@
+import { Navigate, useLocation } from "react-router-dom";
+import type { ReactNode } from "react";
+
+import { useAuth } from "../context/AuthContext";
+import { canAccessRoute, getDefaultRouteForUser } from "./accessControl";
+
+type ModuleAccessGuardProps = {
+  children: ReactNode;
+};
+
+function readStoredAuthUser() {
+  try {
+    const raw = localStorage.getItem("ema-auth") || sessionStorage.getItem("ema-auth");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed?.user) return parsed.user;
+    }
+  } catch {
+    // ignore malformed storage
+  }
+
+  try {
+    const rawUser =
+      localStorage.getItem("user") ||
+      localStorage.getItem("authUser") ||
+      sessionStorage.getItem("user") ||
+      sessionStorage.getItem("authUser");
+
+    return rawUser ? JSON.parse(rawUser) : null;
+  } catch {
+    return null;
+  }
+}
+
+export default function ModuleAccessGuard({ children }: ModuleAccessGuardProps) {
+  const location = useLocation();
+  const auth = useAuth() as any;
+  const user = auth?.user || readStoredAuthUser();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!canAccessRoute(user, location.pathname)) {
+    const nextRoute = getDefaultRouteForUser(user);
+
+    if (!nextRoute || nextRoute === "/login") {
+      return <Navigate to="/login" replace />;
+    }
+
+    if (nextRoute !== location.pathname) {
+      return <Navigate to={nextRoute} replace />;
+    }
+  }
+
+  return <>{children}</>;
+}

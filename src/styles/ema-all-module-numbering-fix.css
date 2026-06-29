@@ -1,0 +1,202 @@
+/* EMA Global Numbering + Table Header Fix */
+/* Apply to all modules/pages: Service Desk, Settings, Hardware, Software, Network, App/Web, Patch, Reports, Dashboard tables */
+
+/* 1) Clean ugly row number bubbles/pills globally */
+.row-index-pill,
+.row-no-pill,
+.row-number-pill,
+.index-pill,
+.number-pill,
+.no-pill,
+.serial-pill,
+.table-no-pill,
+.badge-number,
+.number-badge,
+.no-badge,
+[class*="row-index"],
+[class*="row-number-pill"],
+[class*="number-pill"],
+[class*="no-pill"],
+[class*="serial-pill"] {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  display: inline-block !important;
+  place-items: initial !important;
+  align-items: initial !important;
+  justify-content: initial !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* 2) Table first column number alignment */
+table th:first-child,
+table td:first-child,
+.ema-table th:first-child,
+.ema-table td:first-child,
+.data-table th:first-child,
+.data-table td:first-child,
+.clean-table th:first-child,
+.clean-table td:first-child,
+.settings-table th:first-child,
+.settings-table td:first-child,
+.user-row .user-cell:first-child,
+.row-number,
+.no-cell,
+.number-cell,
+.serial-cell {
+  text-align: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: #64748b !important;
+}
+
+/* 3) Keep number columns narrow and consistent */
+table th:first-child,
+table td:first-child,
+.ema-table th:first-child,
+.ema-table td:first-child,
+.data-table th:first-child,
+.data-table td:first-child,
+.clean-table th:first-child,
+.clean-table td:first-child,
+.settings-table th:first-child,
+.settings-table td:first-child,
+.user-row .user-cell:first-child {
+  width: 52px !important;
+  min-width: 40px !important;
+  max-width: 64px !important;
+}
+
+/* 4) Plain professional number text inside rows */
+tbody td:first-child,
+.user-row:not(.head) .user-cell:first-child,
+.ema-table tbody td:first-child,
+.data-table tbody td:first-child,
+.clean-table tbody td:first-child,
+.settings-table tbody td:first-child {
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  line-height: 1.2 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* 5) Remove box/pill from sortable table headers globally */
+thead th button,
+.user-row.head button,
+.table-header button,
+.ema-table th button,
+.data-table th button,
+.clean-table th button,
+.settings-table th button,
+.service-desk-table-wrap .user-row.head button,
+.service-desk-kb-table th button {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .055em !important;
+  text-transform: uppercase !important;
+}
+
+/* 6) Header text grey, compact, consistent */
+thead th,
+.user-row.head .user-cell,
+.ema-table th,
+.data-table th,
+.clean-table th,
+.settings-table th,
+.service-desk-kb-table th {
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .055em !important;
+  text-transform: uppercase !important;
+}
+
+/* 7) If old CSS used blue outline pill in header, kill it */
+thead th .soft-btn,
+thead th .btn,
+.user-row.head .soft-btn,
+.user-row.head .btn,
+.service-desk-table-wrap .user-row.head .soft-btn,
+.service-desk-kb-table th .soft-btn,
+.service-desk-kb-table th .btn {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #64748b !important;
+}
+
+/* 8) Prevent icon/sort arrow from becoming blue boxed */
+thead th button svg,
+thead th button i,
+.user-row.head button svg,
+.user-row.head button i,
+.table-header button svg,
+.table-header button i {
+  width: 10px !important;
+  height: 10px !important;
+  color: #94a3b8 !important;
+  stroke-width: 2 !important;
+}
+
+/* 9) Module-specific safety */
+main[data-section] .row-index-pill,
+.module-page .row-index-pill,
+.page-content .row-index-pill,
+.ema-content .row-index-pill,
+.settings-module-root .row-index-pill,
+.service-desk-kb-table .row-index-pill {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+}
+
+/* 10) Keep action/status badges untouched */
+td:last-child .row-index-pill,
+td:last-child [class*="pill"],
+.user-cell:last-child .row-index-pill,
+.user-cell:last-child [class*="pill"] {
+  width: initial !important;
+}

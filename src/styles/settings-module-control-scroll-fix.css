@@ -1,0 +1,334 @@
+/* Settings - Module Control scroll + compact UI fix */
+
+.settings-module-root[data-section="modules"] {
+  height: calc(100vh - 86px) !important;
+  max-height: calc(100vh - 86px) !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  padding: 10px 10px 12px !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-layout {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: grid !important;
+  grid-template-columns: 250px minmax(0, 1fr) !important;
+  gap: 10px !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-menu {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-menu-list {
+  min-height: 0 !important;
+  overflow: auto !important;
+  padding-right: 4px !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-content {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: grid !important;
+  grid-template-rows: auto auto minmax(0, 1fr) !important;
+  gap: 10px !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-hero {
+  min-height: 72px !important;
+  max-height: 82px !important;
+  padding: 12px 14px !important;
+  border-radius: 14px !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-hero h2 {
+  font-size: 18px !important;
+  line-height: 1.1 !important;
+  margin: 2px 0 !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-hero p {
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-score .score-box {
+  min-height: 52px !important;
+  max-height: 58px !important;
+  width: 112px !important;
+  min-width: 112px !important;
+  padding: 8px 10px !important;
+  border-radius: 11px !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-score .score-box strong {
+  font-size: 19px !important;
+  line-height: 1 !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-score .score-box span,
+.settings-module-root[data-section="modules"] .settings-score .score-box small {
+  font-size: 9px !important;
+}
+
+.settings-module-root[data-section="modules"] .content-toolbar {
+  min-height: 42px !important;
+  padding: 8px 10px !important;
+  border-radius: 14px !important;
+}
+
+.settings-module-root[data-section="modules"] .section-search {
+  min-height: 34px !important;
+}
+
+.settings-module-root[data-section="modules"] .section-search input {
+  height: 32px !important;
+  font-size: 11px !important;
+}
+
+.settings-module-root[data-section="modules"] .content-body {
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.settings-module-root[data-section="modules"] .module-control-panel {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  gap: 10px !important;
+  padding: 0 !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-helper-card.compact {
+  min-height: 46px !important;
+  padding: 9px 12px !important;
+  border-radius: 13px !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-helper-card.compact strong {
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+}
+
+.settings-module-root[data-section="modules"] .settings-helper-card.compact span {
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+}
+
+/* Main scroll area */
+.settings-module-root[data-section="modules"] .module-control-table {
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: calc(100vh - 268px) !important;
+  overflow: auto !important;
+  border-radius: 14px !important;
+  border: 1px solid #dbe7fb !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+/* Each row must be wider than viewport when role columns are many */
+.settings-module-root[data-section="modules"] .module-control-row {
+  display: grid !important;
+  grid-template-columns: 48px minmax(300px, 1.45fr) repeat(var(--module-role-count, 1), minmax(118px, 1fr)) !important;
+  min-width: calc(360px + (118px * var(--module-role-count, 1))) !important;
+  width: 100% !important;
+  align-items: center !important;
+}
+
+/* Sticky table header */
+.settings-module-root[data-section="modules"] .module-control-table > .module-control-row.head {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+  min-height: 38px !important;
+  background: #f1f5f9 !important;
+  border-bottom: 1px solid #d5e1f3 !important;
+}
+
+.settings-module-root[data-section="modules"] .module-control-table > .module-control-row.head .user-cell {
+  min-height: 38px !important;
+  padding: 0 10px !important;
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  line-height: 1.15 !important;
+  letter-spacing: .045em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+/* Group header */
+.settings-module-root[data-section="modules"] .module-control-group-row {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 12 !important;
+  min-width: calc(360px + (118px * var(--module-role-count, 1))) !important;
+  min-height: 30px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 12px !important;
+  border-top: 1px solid #dbe7fb !important;
+  border-bottom: 1px solid #dbe7fb !important;
+  background: #f5f8fd !important;
+}
+
+.settings-module-root[data-section="modules"] .module-control-group-row span {
+  color: #2563eb !important;
+  font-size: 11px !important;
+  font-weight: 950 !important;
+  letter-spacing: .055em !important;
+  text-transform: uppercase !important;
+}
+
+/* Body rows */
+.settings-module-root[data-section="modules"] .module-control-row:not(.head) {
+  min-height: 42px !important;
+  border-bottom: 1px solid #edf2f7 !important;
+}
+
+.settings-module-root[data-section="modules"] .module-control-row:not(.head):hover {
+  background: #f8fbff !important;
+}
+
+.settings-module-root[data-section="modules"] .module-control-row .user-cell {
+  min-height: 42px !important;
+  padding: 6px 10px !important;
+  overflow: hidden !important;
+}
+
+.settings-module-root[data-section="modules"] .module-info-cell strong {
+  display: block !important;
+  color: #0f2746 !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  line-height: 1.18 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.settings-module-root[data-section="modules"] .module-info-cell small {
+  display: block !important;
+  margin-top: 2px !important;
+  color: #64748b !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.settings-module-root[data-section="modules"] .submodule-row .module-info-cell {
+  padding-left: 14px !important;
+  border-left: 2px solid #dbeafe !important;
+}
+
+/* Plain numbering */
+.settings-module-root[data-section="modules"] .row-index-pill {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 850 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* Compact role heads */
+.settings-module-root[data-section="modules"] .module-role-head {
+  justify-content: center !important;
+  text-align: center !important;
+  white-space: normal !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Compact toggles */
+.settings-module-root[data-section="modules"] .module-toggle-cell {
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.settings-module-root[data-section="modules"] .module-toggle-cell .toggle {
+  position: relative !important;
+  width: 34px !important;
+  height: 18px !important;
+  min-width: 34px !important;
+  min-height: 18px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #cbd5e1 !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, .12) !important;
+  cursor: pointer !important;
+}
+
+.settings-module-root[data-section="modules"] .module-toggle-cell .toggle::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 3px !important;
+  left: 3px !important;
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, .22) !important;
+  transition: transform .16s ease !important;
+}
+
+.settings-module-root[data-section="modules"] .module-toggle-cell .toggle.on {
+  background: linear-gradient(135deg, #2563eb, #087ea4) !important;
+}
+
+.settings-module-root[data-section="modules"] .module-toggle-cell .toggle.on::before {
+  transform: translateX(16px) !important;
+}
+
+.settings-module-root[data-section="modules"] .module-toggle-cell .toggle:disabled {
+  opacity: .55 !important;
+  cursor: wait !important;
+}
+
+/* Scrollbar */
+.settings-module-root[data-section="modules"] .module-control-table::-webkit-scrollbar,
+.settings-module-root[data-section="modules"] .settings-menu-list::-webkit-scrollbar {
+  width: 9px !important;
+  height: 9px !important;
+}
+
+.settings-module-root[data-section="modules"] .module-control-table::-webkit-scrollbar-thumb,
+.settings-module-root[data-section="modules"] .settings-menu-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 999px !important;
+}
+
+.settings-module-root[data-section="modules"] .module-control-table::-webkit-scrollbar-track,
+.settings-module-root[data-section="modules"] .settings-menu-list::-webkit-scrollbar-track {
+  background: #f8fafc !important;
+}
+
+/* Smaller screen: allow table horizontal scroll, content remains vertical */
+@media (max-width: 1280px) {
+  .settings-module-root[data-section="modules"] .settings-layout {
+    grid-template-columns: 220px minmax(0, 1fr) !important;
+  }
+
+  .settings-module-root[data-section="modules"] .module-control-table {
+    max-height: calc(100vh - 260px) !important;
+  }
+}

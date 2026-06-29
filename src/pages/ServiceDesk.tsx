@@ -37,6 +37,7 @@ import {
   Users,
   X,
 } from 'lucide-react';
+import '../styles/service-desk-final-fix.css';
 
 type AppUser = {
   id?: string | number;
@@ -1938,7 +1939,7 @@ export default function ServiceDesk() {
       if (target.closest('.setting-select-menu')) return;
       if (target.closest('.uam-filter-menu')) return;
       if (target.closest('.service-desk-asset-dropdown')) return;
-      if (target.closest('.settings-toast')) return;
+      if (target.closest('.settings-toast') || target.closest('.ema-notice-card')) return;
 
       setSelectedIncidentId('');
     }
@@ -4277,7 +4278,7 @@ export default function ServiceDesk() {
     { key: 'in-progress' as QueueKey, label: 'In Progress', sub: 'Active work', count: queueCounts.inProgress, icon: ArrowRightLeft },
     { key: 'pending-approval' as QueueKey, label: 'Resolved', sub: 'Waiting closure', count: queueCounts.pendingApproval, icon: Settings },
     { key: 'resolved' as QueueKey, label: 'Closed', sub: 'Completed tickets', count: queueCounts.resolved, icon: CheckCircle2 },
-    { key: 'knowledge' as QueueKey, label: 'Knowledge Base', sub: hasLoadedKb ? 'Resolution articles' : 'Loading articles...', count: queueCounts.kb, icon: BookOpen },
+    { key: 'knowledge' as QueueKey, label: 'Knowledge Base', sub: 'Resolution articles', count: queueCounts.kb, icon: BookOpen },
   ];
 
   const kpis = [
@@ -5455,12 +5456,12 @@ export default function ServiceDesk() {
 `}</style>
 
       {toast && (
-        <div className={cn('settings-toast', `is-${toast.type}`)} role="status" aria-live="polite">
-          <i className="settings-toast-icon">
-            {toast.type === 'success' ? <CheckCircle2 size={18} /> : toast.type === 'error' ? <ShieldAlert size={18} /> : <Clock size={18} />}
+        <div className={cn('ema-notice-card', `is-${toast.type}`)} role="status" aria-live="polite">
+          <i className="ema-notice-icon">
+            {toast.type === 'success' ? <CheckCircle2 size={16} /> : toast.type === 'error' ? <ShieldAlert size={16} /> : <Clock size={16} />}
           </i>
-          <div>
-            <strong>
+          <div className="ema-notice-body">
+            <strong className="ema-notice-title">
               {toast.type === 'success'
                 ? 'Success'
                 : toast.type === 'error'
@@ -5469,9 +5470,9 @@ export default function ServiceDesk() {
                     ? 'Attention'
                     : 'Information'}
             </strong>
-            <span>{toast.message}</span>
+            <span className="ema-notice-message">{toast.message}</span>
           </div>
-          <button type="button" onClick={() => setToast(null)} aria-label="Dismiss notification">
+          <button className="ema-notice-close" type="button" onClick={() => setToast(null)} aria-label="Dismiss notification">
             <X size={14} />
           </button>
         </div>
@@ -6005,6 +6006,8 @@ export default function ServiceDesk() {
                   {paginatedIncidents.map((incident, index) => {
                     const runningNo = (currentPage - 1) * itemsPerPage + index + 1;
                     const sla = getSlaMeta(incident, now);
+                    const assetLabel = incident.assetId || incident.AssetID || incident.assetTag || incident.AssetTag || '?';
+                    const assetMeta = [incident.assetBrand || incident.AssetBrand, incident.assetModel || incident.AssetModel, incident.assetOS || incident.AssetOS || incident.deviceType || incident.DeviceType].filter(Boolean).join(' ? ');
                     const isSelected = getId(incident) === getId(selectedIncident || {});
 
                     return (
@@ -6037,11 +6040,9 @@ export default function ServiceDesk() {
                           </div>
                         </div>
 
-                        <div className="user-cell">
-                          <span className="muted-cell">
-                            <Monitor size={13} />
-                            {incident.assetId || '—'}
-                          </span>
+                        <div className="user-cell service-desk-asset-cell">
+                          <strong title={String(assetLabel)}>{assetLabel}</strong>
+                          <small title={assetMeta || 'No asset details'}>{assetMeta || 'No asset details'}</small>
                         </div>
 
                         <div className="user-cell role-info-cell">
@@ -6154,12 +6155,6 @@ export default function ServiceDesk() {
               </div>
             </header>
 
-            {!hasLoadedKb && (
-              <div className="settings-inline-alert">
-                <Loader2 size={14} className="ema-spin" />
-                <span>Loading knowledge base...</span>
-              </div>
-            )}
 
             <div className="ema-toolbar content-toolbar users-toolbar service-desk-kb-toolbar">
               <label className="ema-search-field">

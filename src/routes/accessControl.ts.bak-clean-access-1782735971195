@@ -1,11 +1,5 @@
 export type AccessUser = Record<string, any>;
 
-export const PUBLIC_AUTH_PATHS = Object.assign(["/login"], {
-  has(path: string) {
-    return cleanPath(path) === "/login";
-  },
-});
-
 function safeParse(raw: string | null) {
   if (!raw || raw === "undefined" || raw === "null") return null;
   try {
@@ -13,12 +7,6 @@ function safeParse(raw: string | null) {
   } catch {
     return null;
   }
-}
-
-export function cleanPath(pathname = "") {
-  const path = String(pathname || "/").split("?")[0].split("#")[0];
-  if (!path || path === "/") return "/";
-  return path.length > 1 && path.endsWith("/") ? path.slice(0, -1) : path;
 }
 
 export function getStoredAccessUser(): AccessUser | null {
@@ -34,7 +22,7 @@ export function getStoredAccessUser(): AccessUser | null {
     "userData",
     "auth",
     "authData",
-    "loginUser",
+    "loginUser"
   ];
 
   for (const key of keys) {
@@ -55,38 +43,6 @@ export function getStoredAccessUser(): AccessUser | null {
   }
 
   return null;
-}
-
-export function saveAccessUser(user: AccessUser | null | undefined) {
-  if (typeof window === "undefined" || !user) return;
-
-  try {
-    const raw = window.localStorage.getItem("ema-auth");
-    const parsed = safeParse(raw) || {};
-    window.localStorage.setItem(
-      "ema-auth",
-      JSON.stringify({
-        ...parsed,
-        user,
-      })
-    );
-  } catch {
-    // ignore storage failure
-  }
-}
-
-export function extractUser(source?: any): AccessUser | null {
-  return (
-    source?.user ||
-    source?.data?.user ||
-    source?.data ||
-    source?.profile ||
-    getStoredAccessUser()
-  );
-}
-
-export function getRouteModuleKeys() {
-  return [];
 }
 
 export function canViewPath() {

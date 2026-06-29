@@ -15,7 +15,6 @@ import {
   settingsRoles,
   settingsUsers,
 } from "../services/settingsService";
-import "../styles/settings-module-control-scroll-fix.css";
 
 type SectionKey = "roles" | "users" | "modules" | "access" | "incident" | "notification" | "softwarePolicy" | "audit" | "pricing" | "aging" | "policy" | "risk" | "resources";
 type RoleStatus = "Active" | "Review" | "Locked" | "Inactive";

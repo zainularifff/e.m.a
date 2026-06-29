@@ -1,0 +1,338 @@
+export type AccessUser = Record<string, any>;
+
+export const ROUTE_LABELS: Record<string, string> = {
+  "/dashboard": "IT Operations Dashboard",
+  "/management-dashboard": "Management Dashboard",
+  "/hardware": "Hardware Inventory",
+  "/software": "Software Inventory",
+  "/network-inventory": "Network Inventory",
+  "/network-metering": "Network Inventory",
+  "/service-desk": "Service Desk",
+  "/tasklist": "Task List",
+  "/report": "Reports",
+  "/settings": "Settings",
+  "/appmetering": "App Metering",
+  "/app-restriction": "App/Web Restriction",
+  "/web-restriction": "Web Restriction",
+  "/software-distribution": "Software Distribution",
+  "/patch-management": "Patch Management",
+  "/internet-metering": "Internet Metering",
+};
+
+export const ROUTE_ORDER = [
+  "/management-dashboard",
+  "/dashboard",
+  "/hardware",
+  "/software",
+  "/network-inventory",
+  "/network-metering",
+  "/service-desk",
+  "/tasklist",
+  "/report",
+  "/appmetering",
+  "/app-restriction",
+  "/web-restriction",
+  "/software-distribution",
+  "/patch-management",
+  "/internet-metering",
+  "/settings",
+];
+
+const MODULE_ROUTE_MAP: Record<string, string> = {
+  management_dashboard: "/management-dashboard",
+  dashboard_manager: "/management-dashboard",
+  it_operations_dashboard: "/dashboard",
+  dashboard: "/dashboard",
+  hardware_inventory: "/hardware",
+  hardware: "/hardware",
+  software_inventory: "/software",
+  software: "/software",
+  network_inventory: "/network-inventory",
+  network: "/network-inventory",
+  service_desk: "/service-desk",
+  task_list: "/tasklist",
+  tasklist: "/tasklist",
+  reports: "/report",
+  report: "/report",
+  settings: "/settings",
+  app_metering: "/appmetering",
+  app_restriction: "/app-restriction",
+  web_restriction: "/web-restriction",
+  software_distribution: "/software-distribution",
+  patch_management: "/patch-management",
+  internet_metering: "/internet-metering",
+};
+
+const ROLE_ROUTE_ALLOW_LIST: Record<string, string[]> = {
+  super_admin: ["*"],
+  superadmin: ["*"],
+  system_administrator: ["*"],
+  system_admin: ["*"],
+  admin: ["*"],
+  client_admin: ["*"],
+
+  dashboard_manager: ["/management-dashboard"],
+  management_dashboard_manager: ["/management-dashboard"],
+
+  it_operation_manager: [
+    "/dashboard",
+    "/hardware",
+    "/software",
+    "/network-inventory",
+    "/network-metering",
+    "/service-desk",
+    "/tasklist",
+    "/report",
+    "/appmetering",
+    "/app-restriction",
+    "/web-restriction",
+    "/software-distribution",
+    "/patch-management",
+    "/internet-metering",
+  ],
+
+  it_operations_manager: [
+    "/dashboard",
+    "/hardware",
+    "/software",
+    "/network-inventory",
+    "/network-metering",
+    "/service-desk",
+    "/tasklist",
+    "/report",
+    "/appmetering",
+    "/app-restriction",
+    "/web-restriction",
+    "/software-distribution",
+    "/patch-management",
+    "/internet-metering",
+  ],
+
+  service_desk: ["/service-desk"],
+  l1_support: ["/service-desk"],
+  l2_support: ["/service-desk"],
+};
+
+function normalizeText(value: unknown) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function splitText(value: unknown): string[] {
+  if (Array.isArray(value)) return value.flatMap((item) => splitText(item));
+
+  return String(value || "")
+    .split(/[,|;]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function safeParseJson(raw: string | null) {
+  if (!raw || raw === "undefined" || raw === "null") return null;
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+export function getStoredAccessUser(): AccessUser | null {
+  if (typeof window === "undefined") return null;
+
+  const keys = [
+    "ema-auth",
+    "user",
+    "authUser",
+    "currentUser",
+    "emaUser",
+    "ema-user",
+    "userData",
+    "auth",
+    "authData",
+    "loginUser",
+  ];
+
+  for (const key of keys) {
+    const parsed =
+      safeParseJson(window.localStorage.getItem(key)) ||
+      safeParseJson(window.sessionStorage.getItem(key));
+
+    if (!parsed) continue;
+
+    const user =
+      parsed.user ||
+      parsed.data?.user ||
+      parsed.data ||
+      parsed.profile ||
+      parsed;
+
+    if (user && typeof user === "object") {
+      return user;
+    }
+  }
+
+  return null;
+}
+
+export function getUserRoles(user: AccessUser | null | undefined): string[] {
+  const roles = [
+    ...splitText(user?.roles),
+    ...splitText(user?.roleName),
+    ...splitText(user?.RoleName),
+    ...splitText(user?.role),
+    ...splitText(user?.Role),
+  ];
+
+  return Array.from(new Set(roles.map(normalizeText).filter(Boolean)));
+}
+
+export function isSuperAccessUser(user: AccessUser | null | undefined) {
+  const roles = getUserRoles(user);
+
+  return Boolean(user?.isSuperAdmin || user?.isSystemAdmin) ||
+    roles.some((role) =>
+      ["super_admin", "superadmin", "system_administrator", "system_admin", "admin"].includes(role)
+    );
+}
+
+function normalizeRoute(pathname: string) {
+  const path = String(pathname || "/").split("?")[0].split("#")[0];
+  if (!path || path === "/") return "/";
+  return path.length > 1 && path.endsWith("/") ? path.slice(0, -1) : path;
+}
+
+function routeMatches(pathname: string, allowedRoute: string) {
+  const path = normalizeRoute(pathname);
+  const allowed = normalizeRoute(allowedRoute);
+
+  return path === allowed || path.startsWith(allowed + "/");
+}
+
+function getRoleAllowedRoutes(user: AccessUser | null | undefined): string[] {
+  const roles = getUserRoles(user);
+
+  for (const role of roles) {
+    if (ROLE_ROUTE_ALLOW_LIST[role]) {
+      return ROLE_ROUTE_ALLOW_LIST[role];
+    }
+  }
+
+  return [];
+}
+
+function getUserConfiguredRoutes(user: AccessUser | null | undefined): string[] {
+  const allowedRoutes = Array.isArray(user?.allowedRoutes)
+    ? user.allowedRoutes.map(String)
+    : [];
+
+  const allowedModules = Array.isArray(user?.allowedModules)
+    ? user.allowedModules.map((item: any) => {
+        const key = normalizeText(item?.moduleName || item?.name || item?.module || item);
+        return MODULE_ROUTE_MAP[key] || String(item);
+      })
+    : [];
+
+  const moduleAccess =
+    user?.moduleAccess && typeof user.moduleAccess === "object"
+      ? user.moduleAccess
+      : {};
+
+  const fromModuleAccess = Object.values(moduleAccess)
+    .map((item: any) => {
+      const key = normalizeText(item?.moduleName || item?.name || item?.module || item?.label);
+      return item?.routePath || item?.route || item?.path || MODULE_ROUTE_MAP[key] || "";
+    })
+    .filter(Boolean)
+    .map(String);
+
+  return [...allowedRoutes, ...allowedModules, ...fromModuleAccess].filter(Boolean);
+}
+
+export function getAllowedRoutesForUser(user: AccessUser | null | undefined): string[] {
+  if (!user) return [];
+
+  const roleRoutes = getRoleAllowedRoutes(user);
+
+  // Restrictive business role wajib menang.
+  // Ini block case backend hantar allowedRoutes ["*"] untuk Dashboard Manager.
+  if (roleRoutes.length > 0 && !roleRoutes.includes("*")) {
+    return roleRoutes;
+  }
+
+  if (isSuperAccessUser(user)) return ["*"];
+  if (roleRoutes.includes("*")) return ["*"];
+
+  const configuredRoutes = getUserConfiguredRoutes(user);
+
+  if (configuredRoutes.includes("*")) return ["*"];
+
+  const realRoutes = configuredRoutes
+    .map((route) => String(route).trim())
+    .filter((route) => route.startsWith("/"));
+
+  return Array.from(new Set(realRoutes));
+}
+
+export function canAccessRoute(user: AccessUser | null | undefined, pathname: string) {
+  const path = normalizeRoute(pathname);
+
+  if (path === "/" || path === "/login") return true;
+
+  const allowedRoutes = getAllowedRoutesForUser(user);
+
+  if (allowedRoutes.includes("*")) return true;
+
+  return allowedRoutes.some((route) => routeMatches(path, route));
+}
+
+export function getDefaultRouteForUser(user: AccessUser | null | undefined) {
+  const allowedRoutes = getAllowedRoutesForUser(user);
+
+  if (allowedRoutes.includes("*")) return "/dashboard";
+
+  for (const route of ROUTE_ORDER) {
+    if (allowedRoutes.some((allowed) => routeMatches(route, allowed))) {
+      return route;
+    }
+  }
+
+  return "/login";
+}
+
+/**
+ * Backward-compatible helper for Sidebar.tsx.
+ * Supports:
+ * - canViewPath("/dashboard")
+ * - canViewPath("/dashboard", user)
+ * - canViewPath(user, "/dashboard")
+ */
+export function canViewPath(
+  pathOrUser: string | AccessUser | null | undefined,
+  userOrPath?: AccessUser | string | null
+) {
+  const path =
+    typeof pathOrUser === "string"
+      ? pathOrUser
+      : typeof userOrPath === "string"
+        ? userOrPath
+        : "";
+
+  const user =
+    typeof pathOrUser === "string"
+      ? ((userOrPath && typeof userOrPath === "object" ? userOrPath : getStoredAccessUser()) as AccessUser | null)
+      : ((pathOrUser || getStoredAccessUser()) as AccessUser | null);
+
+  if (!path) return false;
+
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+  return canAccessRoute(user, normalizedPath);
+}
+
+export const canViewRoute = canViewPath;
+export const getAccessLandingPath = getDefaultRouteForUser;
