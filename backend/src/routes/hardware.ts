@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import { getAll, getStats, getById, create, update, remove } from '../controllers/hardwareController';
+const router = Router();
+router.get('/stats', getStats);
+router.get('/', getAll);
+router.get('/:id', getById);
+router.post('/', create);
+router.put('/:id', update);
+router.delete('/:id', remove);
+export default router;

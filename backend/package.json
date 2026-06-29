@@ -1,0 +1,42 @@
+{
+  "name": "ema-backend",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon server-runner.js",
+    "start": "node server-runner.js",
+    "dev:ts": "nodemon server-runner.js",
+    "build": "tsc",
+    "start:dist": "node server-runner.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.13.2",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "form-data": "^4.0.4",
+    "jsonwebtoken": "^9.0.3",
+    "mssql": "^11.0.1",
+    "multer": "^2.1.1",
+    "passport": "^0.7.0",
+    "passport-azure-ad": "^4.3.5",
+    "passport-google-oauth20": "^2.0.0",
+    "qrcode": "^1.5.4",
+    "speakeasy": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/mssql": "^9.1.5",
+    "@types/node": "^20.14.0",
+    "nodemon": "^3.1.14",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.3"
+  }
+}
